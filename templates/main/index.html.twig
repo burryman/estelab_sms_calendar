@@ -2,6 +2,15 @@
 
 {% block title %}Hello MainController!{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="./assets/js/ouical.js"></script>
+    <script src="./assets/js/script.js"></script>
+{% endblock %}
+
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -9,13 +18,14 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hello {{ patient_name }}! </h1>
 
-    This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Estelab/estelab_events/src/Controller/MainController.php'|file_link(0) }}">src/Controller/MainController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Estelab/estelab_events/templates/main/index.html.twig'|file_link(0) }}">templates/main/index.html.twig</a></code></li>
+        <li>ID записи <span>{{ entry_id }}</span></li>
+        <li>Имя пациента <span>{{ patient_name }}</span></li>
     </ul>
+
+    <div id = "calendar-wrapper"></div>
 </div>
 
 {% endblock %}

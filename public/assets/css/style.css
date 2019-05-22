@@ -1,0 +1,8 @@
+#calendar-wrapper .add-to-calendar-checkbox~a {
+    display: block;
+    width: 100%;
+    margin-left: 20px;
+}
+#calendar-wrapper .add-to-calendar-checkbox:checked~a {
+
+}
