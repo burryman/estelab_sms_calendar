@@ -31,6 +31,11 @@ class Entries
      */
     private $shortUrlCode;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $entryId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Entries
     public function setShortUrlCode(?string $shortUrlCode): self
     {
         $this->shortUrlCode = $shortUrlCode;
+
+        return $this;
+    }
+
+    public function getEntryId(): ?int
+    {
+        return $this->entryId;
+    }
+
+    public function setEntryId(?int $entryId): self
+    {
+        $this->entryId = $entryId;
 
         return $this;
     }

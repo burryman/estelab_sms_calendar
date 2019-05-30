@@ -18,4 +18,5 @@ return [
     JMS\SerializerBundle\JMSSerializerBundle::class => ['all' => true],
     Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
+    EasyCorp\Bundle\EasyDeployBundle\EasyDeployBundle::class => ['dev' => true, 'test' => true],
 ];

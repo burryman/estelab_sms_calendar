@@ -18,14 +18,16 @@
 </style>
 
 <div class="example-wrapper">
+    <img class="logo" src="./assets/img/logo.svg">
     <h1>Hello {{ patient_name }}! </h1>
 
     <ul>
         <li>ID записи <span>{{ entry_id }}</span></li>
         <li>Имя пациента <span>{{ patient_name }}</span></li>
+        <li>Дата приема <span>{{ entry_date }}</span></li>
     </ul>
 
-    <div id = "calendar-wrapper"></div>
+    <div id = "calendar-wrapper" data-entry-date = "{{ js_entry_date }}"></div>
 </div>
 
 {% endblock %}

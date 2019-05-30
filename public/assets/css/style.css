@@ -1,8 +1,39 @@
 #calendar-wrapper .add-to-calendar-checkbox~a {
-    display: block;
-    width: 100%;
-    margin-left: 20px;
+    display: flex;
+    /* width: 100%; */
+    margin: 0;
+    padding: 10px 15px;
+    background-color: white;
+    text-decoration: none;
+    color: #222;
+    align-items: center;
+    border-bottom: 1px solid #eee;
 }
+
+#calendar-wrapper .add-to-calendar-checkbox~a:last-child {
+    border: none;
+    border-radius: 4px;
+}
+
 #calendar-wrapper .add-to-calendar-checkbox:checked~a {
 
+}
+
+.logo {
+    max-width: 100px;
+}
+
+#calendar-wrapper .calendar {
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: 0px 0px 5px lightgrey;
+    border-radius: 4px;
+}
+
+#calendar-wrapper .add-to-calendar-checkbox {
+    color: white;
+    background-color: #f68818;
+    border-radius: 4px 4px 0 0;
+    padding: 10px 15px;
 }

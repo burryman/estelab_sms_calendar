@@ -33,6 +33,8 @@ class MainController extends AbstractController
                 return $this->render('main/index.html.twig', [
                     'entry_id' => $entry->getId(),
                     'patient_name' => $entry->getName(),
+                    'entry_date' => $entryDateTime->format('d.m.Y H:i'),
+                    'js_entry_date' => $entryDateTime->format('D M d Y H:i:s O'),
                     'entry_code' => $entryCode,
                 ]);
             }
@@ -47,29 +49,45 @@ class MainController extends AbstractController
      */
     public function newEntry(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository(Entries::class);
-        $entityManager = $this->getDoctrine()->getManager();
+        //$repository = $this->getDoctrine()->getRepository(Entries::class);
 
-        $name = $request->query->get('name');
-        $timestamp = $request->query->getInt('timestamp');
-        $dateTime = new DateTime("@$timestamp");
+        if (0 === strpos($request->headers->get('Content-Type'), 'application/json')) {
+            $data = json_decode($request->getContent(), true);
+            $request->request->replace(is_array($data) ? $data : array());
 
-        $urlCOde = EstelabFunctions::generateUrlCode($repository, 8);
-        $entry = new Entries();
+            $repository = $this->getDoctrine()->getRepository(Entries::class);
+            $entityManager = $this->getDoctrine()->getManager();
 
-        if ($name) {
-            $entry->setName($name);
+            $entry = $repository->findOneBy(['entryId' => $data['externalID']]);
+            //$entry = new Entries();
+            if (!$entry) {
+                $entry = new Entries();
+
+                if (!empty($data['urlCode'])) {
+                    $entry->setShortUrlCode($data['urlCode']);
+                }
+            }
+
+            if (!empty($data['externalID'])) {
+                $entry->setEntryId($data['externalID']);
+            }
+
+            if (!empty($data['name'])) {
+                $entry->setName($data['name']);
+            }
+
+            $timestamp = $data['entryTimestamp'];
+            $dateTime = new DateTime("@$timestamp");
+            $entry->setEntryDate($dateTime);
+
+            $entityManager->persist($entry);
+            $entityManager->flush();
+
+            return $this->json([
+                'id' => $entry->getId(),
+                'urlCode' => $entry->getShortUrlCode(),
+            ]);
         }
-
-        $entry->setShortUrlCode($urlCOde);
-        $entry->setEntryDate($dateTime);
-        $entityManager->persist($entry);
-        $entityManager->flush();
-
-        return $this->json([
-            'id' => $entry->getId(),
-            'code' => $urlCOde,
-        ]);
     }
 
 
