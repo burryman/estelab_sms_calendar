@@ -15,7 +15,7 @@
     google: function(event) {
       var startTime = formatTime(event.start);
       var endTime = calculateEndTime(event);
-
+      console.log(startTime);
       var href = encodeURI([
         'https://www.google.com/calendar/render',
         '?action=TEMPLATE',
@@ -26,6 +26,7 @@
         '&location=' + (event.address || ''),
         '&sprop=&sprop=name:'
       ].join(''));
+      return href;
       return '<a class="icon-google" target="_blank" href="' +
         href + '">Google Calendar</a>';
     },
@@ -58,7 +59,7 @@
         '&desc=' + (event.description || ''),
         '&in_loc=' + (event.address || '')
       ].join(''));
-
+        return href;
       return '<a class="icon-yahoo" target="_blank" href="' +
         href + '">Yahoo! Calendar</a>';
     },
@@ -80,7 +81,7 @@
           'LOCATION:' + (event.address || ''),
           'END:VEVENT',
           'END:VCALENDAR'].join('\n'));
-
+        return href;
       return '<a class="' + eClass + '" target="_blank" href="' +
         href + '">' + calendarName + ' Calendar</a>';
     },
@@ -165,8 +166,9 @@
       return;
     }
 
-    return generateMarkup(generateCalendars(params.data),
+    /*return generateMarkup(generateCalendars(params.data),
                           getClass(params),
-                          getOrGenerateCalendarId(params));
+                          getOrGenerateCalendarId(params));*/
+      return generateCalendars(params.data);
   };
 })(this);

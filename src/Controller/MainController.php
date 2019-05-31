@@ -34,7 +34,7 @@ class MainController extends AbstractController
                     'entry_id' => $entry->getId(),
                     'patient_name' => $entry->getName(),
                     'entry_date' => $entryDateTime->format('d.m.Y H:i'),
-                    'js_entry_date' => $entryDateTime->format('D M d Y H:i:s O'),
+                    'js_entry_date' => $entryDateTime->format("Ymd\THis"),
                     'entry_code' => $entryCode,
                 ]);
             }
@@ -88,6 +88,42 @@ class MainController extends AbstractController
                 'urlCode' => $entry->getShortUrlCode(),
             ]);
         }
+    }
+
+    public function initCalendarWidget($title = 'Test Title', $startTime, $endTime, $desc, $address, $url) {
+
+        $hrefGoogle = 'https://www.google.com/calendar/render'.
+        '?action=TEMPLATE'.
+        '&text=' . $title.
+        '&dates=' . $startTime.
+        '/' . $endTime.
+        '&details=' . $desc.
+        '&location=' . $address.
+        '&sprop=&sprop=name:';
+
+        $hrefApple = 'data:text/calendar;charset=utf8,' .
+            implode('\n',
+                [
+                    'BEGIN:VCALENDAR',
+                    'VERSION:2.0',
+                    'BEGIN:VEVENT',
+                    'URL:' . $url,
+                    'DTSTART:' . $startTime,
+                    'DTEND:' . $endTime,
+                    'SUMMARY:' . $title,
+                    'DESCRIPTION:' . $desc,
+                    'LOCATION:' . $address,
+                    'END:VEVENT',
+                    'END:VCALENDAR'
+                ]
+            );
+
+        return $this->render(
+            'widgets/calendar.html.twig', [
+                'href_google' => $hrefGoogle,
+                'href_apple' => $hrefApple,
+            ]
+        );
     }
 
 

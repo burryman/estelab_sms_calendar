@@ -3,19 +3,17 @@
 {% block title %}Hello MainController!{% endblock %}
 
 {% block stylesheets %}
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&display=swap&subset=cyrillic,cyrillic-ext" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 {% endblock %}
 
 {% block javascripts %}
+    <script src="./assets/js/jquery.min.js"></script>
     <script src="./assets/js/ouical.js"></script>
     <script src="./assets/js/script.js"></script>
 {% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
 <div class="example-wrapper">
     <img class="logo" src="./assets/img/logo.svg">
@@ -28,6 +26,17 @@
     </ul>
 
     <div id = "calendar-wrapper" data-entry-date = "{{ js_entry_date }}"></div>
+    {{ render(controller(
+        'App\\Controller\\MainController::initCalendarWidget',
+        {
+            'title': 'title',
+            'startTime' : js_entry_date,
+            'endTime' : js_entry_date,
+            'desc' : 'описание',
+            'address': 'Народная ул., 12, Москва, Россия, 115172',
+            'url' : app.request.uri
+        }
+    )) }}
 </div>
 
 {% endblock %}
