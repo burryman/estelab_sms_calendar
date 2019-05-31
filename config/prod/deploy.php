@@ -12,7 +12,7 @@ return new class extends DefaultDeployer
             // the absolute path of the remote server directory where the project is deployed
             ->deployDir('/htdocs/')
             // the URL of the Git repository where the project code is hosted
-            ->repositoryUrl('https://github.com/burryman/estelab_sms_calendar')
+            ->repositoryUrl('git@github.com:burryman/estelab_sms_calendar.git')
             // the repository branch to deploy
             ->repositoryBranch('master')
         ;
@@ -21,7 +21,7 @@ return new class extends DefaultDeployer
     // run some local or remote commands before the deployment is started
     public function beforeStartingDeploy()
     {
-        // $this->runLocal('./vendor/bin/simple-phpunit');
+        //$this->runLocal('./vendor/bin/simple-phpunit');
     }
 
     // run some local or remote commands after the deployment is finished

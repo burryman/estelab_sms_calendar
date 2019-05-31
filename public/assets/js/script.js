@@ -1,17 +1,25 @@
 
-$(document).on('click', function (e) {
-    var target = e.target;
+document.addEventListener("DOMContentLoaded", function(event) {
+    var link = document.getElementById("open_map");
+    var ua = navigator.userAgent.toLowerCase();
+    var mapLink = "";
 
-    console.log($(target));
-    console.log($(target).parents());
-    console.log($('.popup-wrapper').hasClass('active'));
-    if ( ($(target).is('.add-to-calendar_btn') || $(target).parents().is('.add-to-calendar_btn')) && !$('.popup-wrapper').hasClass('active')) {
-        $('.popup-wrapper').addClass('active');
-    } else if (!$(target).is('.popup-wrapper') && !$(target).parents().is('.add-to-calendar_btn') && $('.popup-wrapper').hasClass('active')) {
-        $('.popup-wrapper').removeClass('active');
-    }
+
+    if( (navigator.platform.indexOf("iPhone") != -1)
+        || (navigator.platform.indexOf("iPod") != -1)
+        || (navigator.platform.indexOf("iPad") != -1))
+        mapLink = "maps://maps.google.com/maps?daddr=Эстелаб+Москва&amp;ll=";
+    else if(ua.indexOf("android") != -1)
+        mapLink = "geo:0,0?q=Эстелаб+Москва";
+    else
+        mapLink = "http://maps.google.com/maps?daddr=Эстелаб+Москва";
+
+    link.setAttribute("href", mapLink);
+
 });
 
+
+//document.querySelector('#calendar-wrapper').appendChild(myCalendar);
 
 
 //document.querySelector('#calendar-wrapper').appendChild(myCalendar);

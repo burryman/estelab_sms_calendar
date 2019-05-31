@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Asset\Package;
+use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 
 class MainController extends AbstractController
 {
@@ -24,6 +26,7 @@ class MainController extends AbstractController
         if (!$entry) {
             throw $this->createNotFoundException();
         } else {
+            setlocale(LC_ALL, 'ru_RU', 'ru_RU.UTF-8', 'ru', 'russian');
             $dateTimeNow = new DateTime();
             $entryDateTime = $entry->getEntryDate();
 
@@ -33,9 +36,10 @@ class MainController extends AbstractController
                 return $this->render('main/index.html.twig', [
                     'entry_id' => $entry->getId(),
                     'patient_name' => $entry->getName(),
-                    'entry_date' => $entryDateTime->format('d.m.Y H:i'),
+                    'entry_date' => EstelabFunctions::ru_date("%d %bg %Y в %R", $entryDateTime->getTimestamp()),
                     'js_entry_date' => $entryDateTime->format("Ymd\THis"),
                     'entry_code' => $entryCode,
+                    'cssVersion' =>  'v11'
                 ]);
             }
         }
@@ -102,7 +106,7 @@ class MainController extends AbstractController
         '&sprop=&sprop=name:';
 
         $hrefApple = 'data:text/calendar;charset=utf8,' .
-            implode('\n',
+            implode('%0A',
                 [
                     'BEGIN:VCALENDAR',
                     'VERSION:2.0',
@@ -117,6 +121,8 @@ class MainController extends AbstractController
                     'END:VCALENDAR'
                 ]
             );
+
+
 
         return $this->render(
             'widgets/calendar.html.twig', [

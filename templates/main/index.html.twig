@@ -1,31 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Запись в клинику ЭСТЕЛАБ{% endblock %}
 
 {% block stylesheets %}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600&display=swap&subset=cyrillic,cyrillic-ext" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css?{{ cssVersion }}">
 {% endblock %}
 
 {% block javascripts %}
-    <script src="./assets/js/jquery.min.js"></script>
-    <script src="./assets/js/ouical.js"></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/script.js?{{ cssVersion }}"></script>
 {% endblock %}
 
 {% block body %}
 
-<div class="example-wrapper">
-    <img class="logo" src="./assets/img/logo.svg">
-    <h1>Hello {{ patient_name }}! </h1>
+<div class="page-wrapper">
+    <img class="logo" src="./assets/img/logo.png">
+    <h2>Ваша запись в клинику ЭСТЕЛАБ</h2>
+    <p class="date">{{ entry_date }}</p>
 
-    <ul>
-        <li>ID записи <span>{{ entry_id }}</span></li>
-        <li>Имя пациента <span>{{ patient_name }}</span></li>
-        <li>Дата приема <span>{{ entry_date }}</span></li>
-    </ul>
-
-    <div id = "calendar-wrapper" data-entry-date = "{{ js_entry_date }}"></div>
     {{ render(controller(
         'App\\Controller\\MainController::initCalendarWidget',
         {
@@ -37,6 +29,16 @@
             'url' : app.request.uri
         }
     )) }}
+
+    <h2>Адрес клиники</h2>
+    <p>Москва, ул. Народная, д.12 </p>
+    <p class="metro_info"><span class="metro-icon"></span>Таганская, три минуты пешком</p>
+    <p><a href="#" id = "open_map" style="cursor: pointer;">Показать на карте</a></p>
+    <h2>Позвонить</h2>
+    <p>
+        <a href="tel:+74956468789">+7 495 646-87-89</a>
+    </p>
+
 </div>
 
 {% endblock %}
